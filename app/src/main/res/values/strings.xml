@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Módulo Compra</string>
+    <string name="title_activity_main">Módulo Compra</string>
+
+
+    <string name="title_section1">Peixe</string>
+    <string name="title_section2">Fornecedor</string>
+    <string name="title_section3">Resumo</string>
+    <string name="title_section4">Finalização</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_close">Fechar</string>
+    <string name="action_imei">IMEI</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_compras_salvas">Lista de compras salvas</string>
+    <string name="title_activity_obs_compras">Observações da compra</string>
+</resources>

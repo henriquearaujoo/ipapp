@@ -1,0 +1,43 @@
+package br.com.speedy.ipapp.util;
+
+import java.util.List;
+
+import br.com.speedy.ipapp.model.Fornecedor;
+import br.com.speedy.ipapp.model.Lote;
+import br.com.speedy.ipapp.model.Peixe;
+
+/**
+ * Created by henrique on 2015-03-01.
+ */
+public class SessionApp {
+
+    static private Fornecedor fornecedor;
+
+    static private List<Peixe> peixes;
+
+    static private List<Lote> lotes;
+
+    public static List<Peixe> getPeixes() {
+        return peixes;
+    }
+
+    public static void setPeixes(List<Peixe> peixes) {
+        SessionApp.peixes = peixes;
+    }
+
+    public static Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public static void setFornecedor(Fornecedor fornecedor) {
+        SessionApp.fornecedor = fornecedor;
+    }
+
+    public static List<Lote> getLotes() {
+        return lotes;
+    }
+
+    public static void setLotes(List<Lote> lotes) {
+        SessionApp.lotes = lotes;
+    }
+}

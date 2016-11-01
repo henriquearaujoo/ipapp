@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Iranduba Pescados</string>
+    <string name="title_activity_main">Iranduba Pescados</string>
+
+
+    <string name="title_section1">Peixe</string>
+    <string name="title_section2">Fornecedor</string>
+    <string name="title_section3">Resumo</string>
+    <string name="title_section4">Finalização</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

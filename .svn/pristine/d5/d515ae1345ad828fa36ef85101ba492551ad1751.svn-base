@@ -1,0 +1,179 @@
+package br.com.speedy.ipapp.fragment;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.ListFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+
+import org.json.JSONArray;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.speedy.ipapp.R;
+import br.com.speedy.ipapp.adapter.LoteAdapter;
+import br.com.speedy.ipapp.dialog.DialogDadosPeixe;
+import br.com.speedy.ipapp.model.Lote;
+import br.com.speedy.ipapp.model.Peixe;
+import br.com.speedy.ipapp.util.SessionApp;
+
+public class ResumoFragment extends ListFragment implements Runnable {
+
+    public static final int ATUALIZAR_LISTA = 1;
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    private List<Lote> lotes;
+
+    private Lote lote;
+
+    private View lotesStatus;
+
+    private View lotesLista;
+
+    private LoteAdapter adapter;
+
+    private Thread threadLotes;
+
+    // TODO: Rename and change types of parameters
+    public static ResumoFragment newInstance(int position) {
+        ResumoFragment fragment = new ResumoFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PARAM1, position);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public ResumoFragment() {
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_resumo_list, container, false);
+
+        lotesLista = view.findViewById(R.id.lotes_lista);
+
+        lotesStatus = view.findViewById(R.id.lotes_status);
+
+        showProgress(true);
+        threadLotes = new Thread(this);
+        threadLotes.start();
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        showProgress(true);
+
+        if (!threadLotes.isAlive()){
+            threadLotes = new Thread(this);
+            threadLotes.start();
+        }
+
+    }
+
+    public void getLotes(){
+
+        //callServer("get-json", "");
+
+        lotes = SessionApp.getLotes() != null ? SessionApp.getLotes() : new ArrayList<Lote>();
+
+        Message msg = new Message();
+        msg.what = ATUALIZAR_LISTA;
+        handler.sendMessage(msg);
+    }
+
+    @Override
+    public void run() {
+
+        getLotes();
+    }
+
+    private void showProgress(final boolean show) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(
+                    android.R.integer.config_shortAnimTime);
+
+            lotesStatus.setVisibility(View.VISIBLE);
+            lotesStatus.animate().setDuration(shortAnimTime)
+                    .alpha(show ? 1 : 0)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            lotesStatus.setVisibility(show ? View.VISIBLE
+                                    : View.GONE);
+                        }
+                    });
+
+            lotesLista.setVisibility(View.VISIBLE);
+            lotesLista.animate().setDuration(shortAnimTime)
+                    .alpha(show ? 0 : 1)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            lotesLista.setVisibility(show ? View.GONE
+                                    : View.VISIBLE);
+                        }
+                    });
+        } else {
+            lotesStatus.setVisibility(show ? View.VISIBLE : View.GONE);
+            lotesLista.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    private Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            switch (msg.what) {
+
+                case ATUALIZAR_LISTA:
+
+                    adapter = new LoteAdapter(getActivity(), lotes);
+
+                    setListAdapter(adapter);
+
+                    if (isAdded())
+                        showProgress(false);
+
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        lote = (Lote) this.getListAdapter().getItem(position);
+
+    }
+}
