@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/src/main/assets"/><source path="/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/src/debug/assets"/></dataSet></merger>

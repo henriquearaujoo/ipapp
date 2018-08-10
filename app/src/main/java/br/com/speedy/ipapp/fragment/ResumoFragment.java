@@ -161,6 +161,7 @@ public class ResumoFragment extends Fragment implements Runnable {
 
     public void runThread(){
 
+        showProgress(true);
         threadLotes = new Thread(this);
         threadLotes.start();
     }
@@ -304,7 +305,7 @@ public class ResumoFragment extends Fragment implements Runnable {
 
                     txtTotalDescontos.setText(SessionApp.getTotalDescontos().toString() + "kg");
 
-                    if (itensResumo != null) {
+                    if (itensResumo != null && itensResumo.size() > 0) {
 
                         adapter = new ResumoAdapter(getActivity(), itensResumo);
 
@@ -315,8 +316,8 @@ public class ResumoFragment extends Fragment implements Runnable {
                         }
                     }
 
-                    /*if (isAdded())
-                        showProgress(false);*/
+                    if (isAdded())
+                        showProgress(false);
 
                     break;
                 default:

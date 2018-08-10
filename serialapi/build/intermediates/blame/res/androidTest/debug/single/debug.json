@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/androidTest/debug/drawable_icon.png.flat",
+        "source": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/bundles/debug/res/drawable/icon.png"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/androidTest/debug/layout_main.xml.flat",
+        "source": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/bundles/debug/res/layout/main.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/androidTest/debug/layout_loopback.xml.flat",
+        "source": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/bundles/debug/res/layout/loopback.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/androidTest/debug/layout_console.xml.flat",
+        "source": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/bundles/debug/res/layout/console.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/androidTest/debug/xml_serial_port_preferences.xml.flat",
+        "source": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/bundles/debug/res/xml/serial_port_preferences.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/androidTest/debug/layout_sending01010101.xml.flat",
+        "source": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/bundles/debug/res/layout/sending01010101.xml"
+    }
+]

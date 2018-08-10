@@ -1,5 +1,6 @@
 package br.com.speedy.ipapp;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ import android.widget.EditText;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android_serialport_api.sample.SerialPortActivity;
+import br.com.speedy.ipapp.enumerated.Posto;
 import br.com.speedy.ipapp.fragment.FornecedorFragment;
 import br.com.speedy.ipapp.fragment.PeixeFragment;
 import br.com.speedy.ipapp.fragment.ResumoFragment;
@@ -77,6 +80,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     private EditText edtObservacao;
 
+    private SerialPortActivity serial;
+
+    private String posto;
+
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
@@ -90,10 +97,20 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        serial = new SerialPortActivity();
+
+        posto = SharedPreferencesUtil.getPreferences(MainActivity.this, "posto");
+
         btBuscar = (Button) findViewById(R.id.btBuscarCompras);
         btDescartar = (Button) findViewById(R.id.btDescartar);
         btSalvarCompra = (Button) findViewById(R.id.btSalvarCompra);
         btFinalizarCompra = (Button) findViewById(R.id.btFinalizarCompra);
+
+        if (posto.equals(Posto.TUNEL.toString())){
+            btBuscar.setVisibility(View.INVISIBLE);
+            btDescartar.setVisibility(View.INVISIBLE);
+            btSalvarCompra.setVisibility(View.INVISIBLE);
+        }
 
         btBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,11 +131,14 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             @Override
             public void onClick(View v) {
                 if (SessionApp.getLotes() == null || SessionApp.getLotes().size() == 0)
-                    showDialogErro("Você precisa adicionar pelo menos 1 (um) peixe a compra.");
-                else if (SessionApp.getFornecedor() == null)
-                    showDialogErro("Selecione um fornecedor antes de salvar a compra.");
-                else
+                    showDialogErro("Você precisa adicionar pelo menos 1 (um) peixe a pesagem.");
+                else if (SessionApp.getFornecedor() == null) {
+                    if (!posto.equals(Posto.TUNEL.toString())) {
+                        showDialogErro("Selecione um fornecedor antes de salvar a pesagem.");
+                    }
+                }else {
                     showDialogSalvarCompra();
+                }
             }
         });
 
@@ -126,12 +146,15 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             @Override
             public void onClick(View v) {
                 if (SessionApp.getLotes() == null || SessionApp.getLotes().size() == 0)
-                    showDialogErro("Você precisa adicionar pelo menos 1 (um) peixe a compra.");
-                else if (SessionApp.getFornecedor() == null)
-                    showDialogErro("Selecione um fornecedor antes de finalizar a compra.");
-                else {
+                    showDialogErro("Você precisa adicionar pelo menos 1 (um) peixe a pesagem.");
+                else if (SessionApp.getFornecedor() == null) {
+                    if (!posto.equals(Posto.TUNEL.toString())) {
+                        showDialogErro("Selecione um fornecedor antes de finalizar a pesagem.");
+                    }
+                }else {
                     //showDialogFinalizarCompra();
-                    enviarImpressao();
+                    //enviarImpressao();
+                    ImprimirRecibo();
                 }
             }
         });
@@ -171,17 +194,30 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             //tab.setText(mSectionsPagerAdapter.getPageTitle(i));
             tab.setTabListener(this);
 
-            if (i == 0) {
-                tab.setIcon(R.drawable.ic_action_peixe);
-                tab.setText("Peixe");
-            }else if (i == 1) {
-                tab.setIcon(R.drawable.ic_action_fornecedor);
-                tab.setText("Fornecedor   ");
-            }else if (i == 2) {
-                tab.setIcon(R.drawable.ic_action_resumo);
-                tab.setText("Resumo");
-            }else {
-                tab.setIcon(R.drawable.ic_action_finalizacao);
+            if (!posto.equals(Posto.TUNEL.toString())) {
+
+                if (i == 0) {
+                    tab.setIcon(R.drawable.ic_action_peixe);
+                    tab.setText("Peixe");
+                } else if (i == 1) {
+                    tab.setIcon(R.drawable.ic_action_fornecedor);
+                    tab.setText("Fornecedor   ");
+                } else if (i == 2) {
+                    tab.setIcon(R.drawable.ic_action_resumo);
+                    tab.setText("Resumo");
+                } else {
+                    tab.setIcon(R.drawable.ic_action_finalizacao);
+                }
+            }else{
+                if (i == 0) {
+                    tab.setIcon(R.drawable.ic_action_peixe);
+                    tab.setText("Peixe");
+                } else if (i == 1) {
+                    tab.setIcon(R.drawable.ic_action_resumo);
+                    tab.setText("Resumo");
+                } else {
+                    tab.setIcon(R.drawable.ic_action_finalizacao);
+                }
             }
 
             actionBar.addTab(tab);
@@ -347,7 +383,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         compra.setValorTotal(totalCP);
         compra.setDataCompra(new Date());
         compra.setStatus(false);
-        compra.setPause(false);
+        if (!posto.equals(Posto.TUNEL.toString()))
+            compra.setPause(false);
+        else
+            compra.setPause(true);
 
         new Thread(new Runnable() {
             @Override
@@ -412,6 +451,36 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         return jo.toString();
     }
 
+    private void ImprimirRecibo(){
+
+        progressDialog = ProgressDialog.show(MainActivity.this, "", "Imprimindo, aguarde.", false, false);
+
+        compra = SessionApp.getCompra();
+        //compra.setObservacao(edtObservacao.getText() != null ? edtObservacao.getText().toString() : "");
+        BigDecimal totalCP =  new BigDecimal(0);
+        compra.setLotes(new ArrayList<Lote>());
+        List<Lote> list = SessionApp.getLotes();
+        for(Lote lote : list){
+            totalCP = totalCP.add(lote.getValor());
+            lote.setCompra(compra);
+            lote.setFornecedor(SessionApp.getFornecedor());
+            compra.getLotes().add(lote);
+        }
+
+        compra.setFornecedor(SessionApp.getFornecedor());
+        compra.setBarco(SessionApp.getBarco());
+        compra.setValorTotal(totalCP);
+        compra.setDataCompra(new Date());
+
+        String conteudo = getConteudoImpressao(compra);
+
+        serial.print(conteudo);
+
+        Message msg = new Message();
+        msg.what = SHOW_DIALOG_ENVIAR_IMPRESSAO;
+        handler.sendMessage(msg);
+    }
+
     public String getConteudoImpressao(Compra compra){
         //char[] cutP = new char[]{0x1d, 'V', 1};
         BigDecimal totalPesoLiquido = BigDecimal.ZERO;
@@ -423,14 +492,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         conteudo += "DATA: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(compra.getDataCompra()) + " \n";
         conteudo += "CODIGO: " + compra.getCodigo() + " \n";
         conteudo += "USUARIO: " + SessionApp.getUsuario().getNome() + " \n";
-        conteudo += "FORNECEDOR: " + compra.getFornecedor().getNome() + " \n";
-        conteudo += "TRANSPORTE: " + compra.getBarco().getNome() + " \n";
+        if (!posto.equals(Posto.TUNEL.toString())) {
+            conteudo += "FORNECEDOR: " + compra.getFornecedor().getNome() + " \n";
+            conteudo += "TRANSPORTE: " + compra.getBarco().getNome() + " \n";
+        }
         conteudo += "ITENS: (" + compra.getLotes().size() + ") \n";
-        conteudo += "----------------------------------------\n";
+        conteudo += "--------------------------------\n";
 
         for (Lote lote : compra.getLotes()) {
             BigDecimal pesoLiquido = new BigDecimal(String.valueOf(lote.getPeso().subtract(lote.getPesoCacapa().multiply(new BigDecimal(lote.getQtdCaixas())))));
-            conteudo += lote.getPeixe().getDescricao() + "  " + lote.getPeso().toString() + "KG - " + lote.getQtdCaixas().toString() + " = " + pesoLiquido.toString() + "KG\n";
+            conteudo += lote.getPeixe().getDescricao() + "\n";
+            conteudo += lote.getPeso().toString() + "KG - " + lote.getQtdCaixas().toString() + " = " + pesoLiquido.toString() + "KG\n";
 
             totalPesoBruto = totalPesoBruto.add(lote.getPeso());
             totalPesoLiquido = totalPesoLiquido.add(pesoLiquido);
@@ -438,15 +510,15 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             totalCaixas = totalCaixas + lote.getQtdCaixas();
         }
 
-        conteudo += "\nTOTAIS----------------------------------\n";
+        conteudo += "\nTOTAIS------------------------\n";
         conteudo += "TOTAL P. BRUTO: " + totalPesoBruto.toString() + "KG \n";
         conteudo += "TOTAL P. LIQUIDO: " + totalPesoLiquido.toString() + "KG \n";
         conteudo += "TOTAL DESCONTOS: " + totalDescontos.toString() + "KG \n";
         conteudo += "TOTAL CAIXAS: " + totalCaixas.toString() + " \n";
 
-        conteudo +=	"----------------------------------------";
+        conteudo +=	"--------------------------------";
 
-        //conteudo += "\n \n \n \n \n \n" + new String(cutP);
+        conteudo += "\n \n \n \n" ;
 
         return conteudo;
     }
@@ -456,6 +528,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         JSONArray ja = new JSONArray();
 
         try{
+            jo.put("posto", SharedPreferencesUtil.getPreferences(this, "posto"));
             jo.put("id", compra.getId());
             jo.put("codigo", compra.getCodigo());
             jo.put("observacao", compra.getObservacao() != null ? compra.getObservacao() : "");
@@ -466,16 +539,19 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             jo.put("idUsuarioCompra", SessionApp.getUsuario().getId());
             jo.put("nomeUsuarioCompra", SessionApp.getUsuario().getNome());
 
-            JSONObject joF = new JSONObject();
-            joF.put("id", compra.getFornecedor().getId());
-            joF.put("nome", compra.getFornecedor().getNome());
+            if (!posto.equals(Posto.TUNEL.toString())) {
+                JSONObject joF = new JSONObject();
+                joF.put("id", compra.getFornecedor().getId());
+                joF.put("nome", compra.getFornecedor().getNome());
 
-            JSONObject joB = new JSONObject();
-            joB.put("id", compra.getBarco().getId());
-            joB.put("nome", compra.getBarco().getNome());
+                JSONObject joB = new JSONObject();
+                joB.put("id", compra.getBarco().getId());
+                joB.put("nome", compra.getBarco().getNome());
 
-            jo.put("fornecedor", joF);
-            jo.put("barco", joB);
+
+                jo.put("fornecedor", joF);
+                jo.put("barco", joB);
+            }
 
             for (Lote lote : compra.getLotes()){
                 JSONObject joL = new JSONObject();
@@ -564,7 +640,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         builder.setView(view);
 
-        builder.setTitle("Finalizar compra?");
+        builder.setTitle("Finalizar pesagem?");
 
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -619,7 +695,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     public void showDialogDescartarCompra(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
-        builder.setTitle("Deseja descartar esta compra e iniciar uma nova?");
+        builder.setTitle("Deseja descartar esta pesagem e iniciar uma nova?");
 
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -745,6 +821,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        serial.close();
+    }
+
     public void carregarConfiguracao(){
         new Thread(new Runnable() {
             @Override
@@ -797,10 +879,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
                     if (resposta.equals("true")) {
                         limparSessionApp();
-                        showDialogSucesso("Compra salva com sucesso.");
+                        showDialogSucesso("Pesagem salva com sucesso.");
                     }
                     else
-                        showDialogErro("Ocorreu um erro ao salvar a compra.");
+                        showDialogErro("Ocorreu um erro ao salvar a pesagem.");
 
                     break;
                 case SHOW_DIALOG_FINALIZAR_COMPRA:
@@ -812,9 +894,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
                     if (resposta.equals("true")) {
                         limparSessionApp();
-                        showDialogSucesso("Compra finalizada com sucesso.");
+                        showDialogSucesso("Pesagem finalizada com sucesso.");
                     }else
-                        showDialogErro("Ocorreu um erro ao finalizar a compra.");
+                        showDialogErro("Ocorreu um erro ao finalizar a pesagem.");
 
                     break;
 
@@ -825,10 +907,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                         progressDialog = null;
                     }
 
-                    if (resposta.equals("true")) {
-                        showDialogFinalizarCompra();
-                    }else
-                        showDialogErro("Ocorreu um erro ao enviar a impressao.");
+                    showDialogFinalizarCompra();
 
                     break;
                 case DESCARTE_COMPRA:
@@ -841,7 +920,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                     if (resposta.equals("true")) {
                         limparSessionApp();
                     }else
-                        showDialogErro("Ocorreu um erro ao descartar a compra.");
+                        showDialogErro("Ocorreu um erro ao descartar a pesagem.");
                     break;
                 case ATUALIZAR_INCONSISTENCIAS:
                     if (numComprasInconsistentes > 0)
@@ -874,11 +953,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
 
-        /*if(tab.getPosition() == 2){
-            ((ResumoFragment) fragmentResumo).runThread();
-        }*/
+        if (!posto.equals(Posto.TUNEL.toString())) {
+            if (tab.getPosition() == 2) {
+                ((ResumoFragment) fragmentResumo).runThread();
+            }
+        }else{
+            if (tab.getPosition() == 1) {
+                ((ResumoFragment) fragmentResumo).runThread();
+            }
+        }
 
-    }
+}
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -905,17 +990,29 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
             Fragment fragment = null;
 
-            switch (position){
-                case 0:
-                    fragment = PeixeFragment.newInstance(position + 1);
-                    break;
-                case 1:
-                    fragment = FornecedorFragment.newInstance(position + 1);
-                    break;
-                case 2:
-                    fragmentResumo = new ResumoFragment().newInstance(position + 1);
-                    fragment = fragmentResumo;
-                    break;
+            if (!posto.equals(Posto.TUNEL.toString())) {
+                switch (position) {
+                    case 0:
+                        fragment = PeixeFragment.newInstance(position + 1);
+                        break;
+                    case 1:
+                        fragment = FornecedorFragment.newInstance(position + 1);
+                        break;
+                    case 2:
+                        fragmentResumo = new ResumoFragment().newInstance(position + 1);
+                        fragment = fragmentResumo;
+                        break;
+                }
+            }else{
+                switch (position) {
+                    case 0:
+                        fragment = PeixeFragment.newInstance(position + 1);
+                        break;
+                    case 1:
+                        fragmentResumo = new ResumoFragment().newInstance(position + 1);
+                        fragment = fragmentResumo;
+                        break;
+                }
             }
 
             //return PlaceholderFragment.newInstance(position + 1);
@@ -925,21 +1022,35 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+
+            if (!posto.equals(Posto.TUNEL.toString()))
+                return 3;
+            else
+                return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
-                case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+
+            if (!posto.equals(Posto.TUNEL.toString())) {
+                switch (position) {
+                    case 0:
+                        return getString(R.string.title_section1).toUpperCase(l);
+                    case 1:
+                        return getString(R.string.title_section2).toUpperCase(l);
+                    case 2:
+                        return getString(R.string.title_section3).toUpperCase(l);
+                }
+            }else{
+                switch (position) {
+                    case 0:
+                        return getString(R.string.title_section1).toUpperCase(l);
+                    case 1:
+                        return getString(R.string.title_section3).toUpperCase(l);
+                }
             }
+
             return null;
         }
     }

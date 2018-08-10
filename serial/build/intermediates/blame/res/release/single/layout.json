@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serial/build/intermediates/res/merged/release/layout/console.xml",
+        "source": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serial/src/main/res/layout/console.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serial/build/intermediates/res/merged/release/layout/sending01010101.xml",
+        "source": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serial/src/main/res/layout/sending01010101.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serial/build/intermediates/res/merged/release/layout/main.xml",
+        "source": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serial/src/main/res/layout/main.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serial/build/intermediates/res/merged/release/layout/loopback.xml",
+        "source": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serial/src/main/res/layout/loopback.xml"
+    }
+]

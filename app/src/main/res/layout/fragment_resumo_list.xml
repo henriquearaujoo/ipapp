@@ -33,175 +33,186 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:background="#ffffffff">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Código da compra:"
-                android:id="@+id/textView2"
-                android:padding="10dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/txtCodigoCompra"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Fornecedor:"
-                android:id="@+id/textView7"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"
-                android:textStyle="bold"
-                android:layout_marginBottom="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/txtFornecedor"
-                android:layout_marginLeft="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Transporte:"
-                android:id="@+id/textView8"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="15dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/txtBarco"
-                android:layout_marginLeft="5dp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/lotes_lista"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.93"
         android:orientation="vertical">
 
-        <ExpandableListView
-            android:id="@+id/eList"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#ffffffff"
+            android:id="@+id/linearLayout4">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Código da compra:"
+                    android:id="@+id/textView2"
+                    android:padding="10dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/txtCodigoCompra"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Fornecedor:"
+                    android:id="@+id/textView7"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/txtFornecedor"
+                    android:layout_marginLeft="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Transporte:"
+                    android:id="@+id/textView8"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/txtBarco"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lineaLayoutList"
             android:layout_width="match_parent"
-            android:layout_height="384dp"
-            android:layout_weight="0.93"
-            android:textFilterEnabled="false">
-        </ExpandableListView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="#ffffffff">
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Peso bruto:"
-            android:id="@+id/textView4"
-            android:layout_marginLeft="10dp"
-            android:padding="10dp"
-            android:textStyle="bold"
-            android:layout_marginRight="5dp" />
+            android:orientation="vertical"
+            android:layout_below="@+id/linearLayout4"
+            android:layout_above="@+id/linearLayout3">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/txtTotalPesoBruto"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            <ExpandableListView
+                android:id="@+id/eList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textFilterEnabled="false"></ExpandableListView>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Peso liquido:"
-            android:id="@+id/textView5"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
-            android:textStyle="bold" />
+            android:background="#ffffffff"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/txtTotalPesoLiquido"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:padding="10dp"
+                android:text="Peso bruto:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Caixas:"
-            android:id="@+id/textView6"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtTotalPesoBruto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/txtTotalCaixas"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
+                android:text="Peso liquido:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Descontos:"
-            android:id="@+id/textView9"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtTotalPesoLiquido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/txtTotalDescontos"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
+                android:text="Caixas:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtTotalCaixas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
+                android:text="Descontos:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtTotalDescontos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

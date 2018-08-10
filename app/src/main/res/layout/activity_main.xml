@@ -24,38 +24,38 @@
         android:id="@+id/linearLayout">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btBuscarCompras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_action_action_pageview"
-            android:text="Buscar compras"
+            android:text="Buscar"
             android:textColor="#ffffffff" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btDescartar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
             android:drawableLeft="@drawable/ic_action_action_delete"
-            android:text="Descartar compra"
-            android:layout_marginLeft="45dp"
+            android:text="Descartar"
             android:textColor="#ffffffff" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btSalvarCompra"
-            android:drawableLeft="@drawable/ic_action_content_save"
-            android:text="Salvar compra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
+            android:drawableLeft="@drawable/ic_action_content_save"
+            android:text="Salvar"
             android:textColor="#ffffffff" />
 
         <Button
+            android:id="@+id/btFinalizarCompra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btFinalizarCompra"
-            android:drawableLeft="@drawable/ic_action_toggle_check_box"
-            android:text="Finalizar compra"
             android:layout_marginLeft="45dp"
+            android:drawableLeft="@drawable/ic_action_toggle_check_box"
+            android:text="Finalizar"
             android:textColor="#ffffffff" />
 
     </LinearLayout>

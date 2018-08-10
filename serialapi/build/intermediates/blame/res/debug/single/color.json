@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/debug/color/abc_background_cache_hint_selector_material_light.xml",
+        "source": "/Users/henriquearaujo/.android/build-cache/ea96b9a48f579d720b4d263250c44c391c0ac7aa/output/res/color/abc_background_cache_hint_selector_material_light.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/debug/color/abc_background_cache_hint_selector_material_dark.xml",
+        "source": "/Users/henriquearaujo/.android/build-cache/ea96b9a48f579d720b4d263250c44c391c0ac7aa/output/res/color/abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/debug/color/abc_search_url_text.xml",
+        "source": "/Users/henriquearaujo/.android/build-cache/ea96b9a48f579d720b4d263250c44c391c0ac7aa/output/res/color/abc_search_url_text.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/debug/color/abc_secondary_text_material_dark.xml",
+        "source": "/Users/henriquearaujo/.android/build-cache/ea96b9a48f579d720b4d263250c44c391c0ac7aa/output/res/color/abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/debug/color/abc_primary_text_material_light.xml",
+        "source": "/Users/henriquearaujo/.android/build-cache/ea96b9a48f579d720b4d263250c44c391c0ac7aa/output/res/color/abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_light.xml",
+        "source": "/Users/henriquearaujo/.android/build-cache/ea96b9a48f579d720b4d263250c44c391c0ac7aa/output/res/color/abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_dark.xml",
+        "source": "/Users/henriquearaujo/.android/build-cache/ea96b9a48f579d720b4d263250c44c391c0ac7aa/output/res/color/abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/debug/color/abc_secondary_text_material_light.xml",
+        "source": "/Users/henriquearaujo/.android/build-cache/ea96b9a48f579d720b4d263250c44c391c0ac7aa/output/res/color/abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/serialapi/build/intermediates/res/merged/debug/color/abc_primary_text_material_dark.xml",
+        "source": "/Users/henriquearaujo/.android/build-cache/ea96b9a48f579d720b4d263250c44c391c0ac7aa/output/res/color/abc_primary_text_material_dark.xml"
+    }
+]

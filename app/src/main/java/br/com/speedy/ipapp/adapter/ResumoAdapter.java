@@ -170,21 +170,25 @@ public class ResumoAdapter extends BaseExpandableListAdapter implements SectionI
             holder = (ViewHolderChild) convertView.getTag();
         }
 
-        itemResumo = (ItemResumo) getGroup(groupPosition);
+        try {
+            itemResumo = (ItemResumo) getGroup(groupPosition);
 
-        int gp = groupPosition + 1;
-        int cp = childPosition + 1;
-        String id = gp + "." + cp;
-        //holder.txtId.setText(itemResumo.getLotes().get(childPosition).getSequencia() + "");
-        holder.txtId.setText(id);
-        holder.txtPesoLiquido.setText(itemResumo.getLotes().get(childPosition).getPesoLiquido().toString() + "kg");
-        holder.txtPesoBruto.setText(itemResumo.getLotes().get(childPosition).getPeso().toString() + "kg");
-        holder.txtQtdeCaixas.setText(itemResumo.getLotes().get(childPosition).getQtdCaixas().toString());
+            int gp = groupPosition + 1;
+            int cp = childPosition + 1;
+            String id = gp + "." + cp;
+            //holder.txtId.setText(itemResumo.getLotes().get(childPosition).getSequencia() + "");
+            holder.txtId.setText(id);
+            holder.txtPesoLiquido.setText(itemResumo.getLotes().get(childPosition).getPesoLiquido().toString() + "kg");
+            holder.txtPesoBruto.setText(itemResumo.getLotes().get(childPosition).getPeso().toString() + "kg");
+            holder.txtQtdeCaixas.setText(itemResumo.getLotes().get(childPosition).getQtdCaixas().toString());
 
-        if (itemResumo.getLotes().get(childPosition).getDescontokg() != null && itemResumo.getLotes().get(childPosition).getDescontokg().compareTo(BigDecimal.ZERO) == 1)
-            holder.txtDesconto.setText(" - " + itemResumo.getLotes().get(childPosition).getDescontokg().toString() + "kg");
-        else
-            holder.txtDesconto.setText("");
+            if (itemResumo.getLotes().get(childPosition).getDescontokg() != null && itemResumo.getLotes().get(childPosition).getDescontokg().compareTo(BigDecimal.ZERO) == 1)
+                holder.txtDesconto.setText(" - " + itemResumo.getLotes().get(childPosition).getDescontokg().toString() + "kg");
+            else
+                holder.txtDesconto.setText("");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return convertView;
     }

@@ -1,0 +1,33 @@
+{
+  "buildFiles": [
+    "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/src/main/jni/Android.mk",
+    "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/src/main/jni/Application.mk"
+  ],
+  "cleanCommands": [
+    "/Users/henriquearaujo/Library/Android/sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/src/main/jni/Application.mk APP_ABI\u003darmeabi NDK_ALL_ABIS\u003darmeabi NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-14 NDK_OUT\u003d/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/build/intermediates/ndkBuild/debug/lib clean"
+  ],
+  "libraries": {
+    "serial_port-debug-armeabi": {
+      "buildCommand": "/Users/henriquearaujo/Library/Android/sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/src/main/jni/Application.mk APP_ABI\u003darmeabi NDK_ALL_ABIS\u003darmeabi NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-14 NDK_OUT\u003d/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/build/intermediates/ndkBuild/debug/lib /Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/build/intermediates/ndkBuild/debug/obj/local/armeabi/libserial_port.so",
+      "toolchain": "toolchain-armeabi",
+      "abi": "armeabi",
+      "artifactName": "serial_port",
+      "files": [
+        {
+          "src": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/src/main/jni/SerialPort.c",
+          "flags": "\"-gcc-toolchain\" \"/Users/henriquearaujo/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64\" \"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-Wno-invalid-command-line-argument\" \"-Wno-unused-command-line-argument\" \"-no-canonical-prefixes\" \"-fno-integrated-as\" \"-g\" \"-target\" \"armv5te-none-linux-androideabi14\" \"-march\u003darmv5te\" \"-mtune\u003dxscale\" \"-msoft-float\" \"-mthumb\" \"-O0\" \"-UNDEBUG\" \"-fno-limit-debug-info\" \"-I/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/src/main/jni\" \"-DANDROID\" \"-D__ANDROID_API__\u003d14\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"--sysroot\" \"/Users/henriquearaujo/Library/Android/sdk/ndk-bundle/sysroot\" \"-isystem\" \"/Users/henriquearaujo/Library/Android/sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi\""
+        }
+      ],
+      "output": "/Users/henriquearaujo/Desktop/projetos/iranduba_pescados/ipapp/app/build/intermediates/ndkBuild/debug/obj/local/armeabi/libserial_port.so"
+    }
+  },
+  "toolchains": {
+    "toolchain-armeabi": {
+      "cCompilerExecutable": "/Users/henriquearaujo/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": []
+}
